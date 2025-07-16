@@ -25,7 +25,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="./portfolio">Portfolio</a>
+                        <a class="nav-link" href="./projects">Portfolio</a>
                     </li>
 
                     <li class="nav-item">

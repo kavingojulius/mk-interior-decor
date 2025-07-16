@@ -1,3 +1,11 @@
+<?php 
+session_start();
+require_once '../config/config.php';
+
+
+?>
+
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -68,6 +76,17 @@
                     </div>
 
                     
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Create New Project</h5>
+                                    <a href="./create_project" class="btn btn-primary">Create Project</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <footer class="site-footer">
                         <div class="container">

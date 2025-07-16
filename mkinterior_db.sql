@@ -20,3 +20,28 @@ CREATE TABLE IF NOT EXISTS contact_messages (
     submission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status ENUM('unread', 'read', 'responded') DEFAULT 'unread'
 );
+
+CREATE TABLE services (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    service_name VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL
+);
+
+-- Projects table
+CREATE TABLE projects (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Project media table (for both images and videos)
+CREATE TABLE project_media (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    project_id INT NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    media_type ENUM('image', 'video') NOT NULL,
+    upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
+);
+

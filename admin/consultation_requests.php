@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../config/config.php'; // Adjust path as needed
+require_once '../config/config.php';
 
 // Check if admin is logged in
 // if (!isset($_SESSION['admin_logged_in'])) {
