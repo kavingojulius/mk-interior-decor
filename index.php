@@ -1,4 +1,3 @@
-
 <?php
 // Start session and include database connection at the top
 session_start();
@@ -51,6 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['consultation_submit'])
     }
 }
 
+// Fetch services from database for the services section
+$services = [];
+try {
+    $stmt = $conn->query("SELECT * FROM services ORDER BY id DESC LIMIT 6");
+    $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch(PDOException $e) {
+    $servicesError = "Error loading services: " . $e->getMessage();
+}
+
 // Check for success message in session
 if (isset($_SESSION['success_message'])) {
     $consultationSuccess = $_SESSION['success_message'];
@@ -73,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         
         <meta name="author" content="Mk Interior & Decor">
 
-        <title>MK Interior & Decor</title>
+        <title>MK Interior & Decor - Home page</title>
 
         <!-- CSS FILES -->
 
@@ -89,7 +97,35 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
         <link href="./css/styles.css" rel="stylesheet">
         
-
+        <style>                        
+            /* Projects Section Styles */
+            .project-card {
+                position: relative;
+                overflow: hidden;
+                border-radius: 10px;
+                transition: all 0.3s ease;
+            }
+            .project-card img {
+                transition: transform 0.5s ease;
+            }
+            .project-card:hover img {
+                transform: scale(1.05);
+            }
+            .project-overlay {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(161, 188, 154, 0.7);
+                color: white;
+                padding: 1rem;
+                transform: translateY(100%);
+                transition: transform 0.3s ease;
+            }
+            .project-card:hover .project-overlay {
+                transform: translateY(0);
+            }
+        </style>
     </head>
     
     <body>
@@ -168,6 +204,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
         <!-- End Hero section -->
 
+        <!-- About us -->
+
             <section class="about-section section-padding" id="section_2">
                 <div class="container">
                     <div class="row align-items-center">
@@ -195,13 +233,211 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                         </div>
 
                         <div class="col-lg-4 col-md-7 col-7">
-                            <img src="./images/living-room-interior-wall-mockup-warm-tones-with-leather-sofa-which-is-kitchen-3d-rendering.jpg" class="about-image img-fluid" alt="">
+                            <img src="./images/kitchenspace.jpg" class="about-image img-fluid" alt="">
                         </div>
 
                     </div>
                 </div>
             </section>
 
+        <!-- End About us -->
+
+        <!-- Services Section -->
+        <section class="services-section section-padding bg-light" id="section_3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-12 text-center">
+                        <small class="section-small-title">What We Offer</small>
+                        <h2 class="mt-2 mb-4">Our Premium Services</h2> <!-- Reduced margin-bottom -->
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <?php if (!empty($services)): ?>
+                        <?php foreach ($services as $service): ?>
+                            <div class="col-lg-4 col-md-6 col-12 mb-4">
+                                <div class="card service-card border-0 shadow-sm p-3 h-100"> <!-- Reduced padding and shadow -->
+                                    <div class="card-body">
+                                        <div class="text-center mb-3"> <!-- Reduced margin-bottom -->
+                                            <i class="bi bi-palette service-icon" style="
+                                                font-size: 2rem;
+                                                width: 70px;
+                                                height: 70px;
+                                                line-height: 70px;
+                                            "></i> <!-- Made icon smaller -->
+                                        </div>
+                                        <h4 class="card-title text-center mb-2" style="font-size: 1.2rem;"><?php echo htmlspecialchars($service['service_name']); ?></h4> <!-- Smaller font size -->
+                                        <p class="card-text text-muted text-left mb-3" style="
+                                            display: -webkit-box;
+                                            -webkit-line-clamp: 3;
+                                            -webkit-box-orient: vertical;
+                                            overflow: hidden;
+                                            line-height: 1.4;
+                                            min-height: 4.2em;
+                                            font-size: 0.9rem;
+                                        ">
+                                            <?php echo htmlspecialchars($service['description']); ?>
+                                        </p>
+                                        <div class="text-center mt-3"> <!-- Reduced margin-top -->
+                                            <a href="./services" class="btn btn-outline-success px-3 py-1" style="font-size: 0.9rem;">Learn More</a> <!-- Smaller button -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="col-12 text-center">
+                            <p class="text-muted">Our services are currently being updated. Please check back soon.</p>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                
+                <div class="row mt-4"> <!-- Reduced margin-top -->
+                    <div class="col-12 text-center">
+                        <a href="./services" class="btn btn-success px-4 py-2 shadow-sm" style="font-size: 1rem;">View All Services</a> <!-- More proportional button -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Services Section -->
+
+        <style>
+            .service-card {
+                transition: all 0.3s ease;
+                border-radius: 10px; /* Slightly smaller radius */
+                overflow: hidden;
+                background: white;
+            }
+            
+            .service-card:hover {
+                transform: translateY(-5px); /* More subtle hover lift */
+                box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important; /* Softer shadow */
+            }
+            
+            .service-icon {
+                color: #376f44ff;
+                background: rgba(55, 111, 68, 0.1);
+                border-radius: 50%;
+                display: inline-block;
+                transition: all 0.3s ease;
+            }
+            
+            .service-card:hover .service-icon {
+                background: #357043ff;
+                color: white;
+                transform: rotate(15deg);
+            }
+            
+            .card-title {
+                font-weight: 600;
+                color: #333;
+            }
+            
+            .btn-outline-success {
+                border-width: 1.5px; /* Slightly thinner border */
+                font-weight: 500;
+                transition: all 0.3s ease;
+            }
+            
+            .btn-outline-success:hover {
+                background: #357043ff;
+                color: white;
+            }
+            
+            .btn-success {
+                background: #357043ff;
+                border-color: #357043ff;
+            }
+            
+            .btn-success:hover {
+                background: #2c5d38;
+                border-color: #2c5d38;
+            }
+        </style>
+
+        <!-- Projects Section -->
+        <section class="projects-section section-padding" id="section_4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-12 text-center">
+                        <small class="section-small-title">Our Gallery</small>
+                        <h2 class="mt-2 mb-5">View some of our Works</h2>
+                    </div>
+                </div>
+                
+                <div class="row g-4">
+                    <!-- Project 1 -->
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="project-card shadow-sm">
+                            <img src="./images/living.jpg" class="img-fluid" alt="Luxury Living Room">
+                            <div class="project-overlay">
+                                <h5 class="text-white">Modern Luxury Living Room</h5>                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 -->
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="project-card shadow-sm">
+                            <img src="./images/kitchenspace.jpg" class="img-fluid" alt="Contemporary Kitchen">
+                            <div class="project-overlay">
+                                <h5 class="text-white">Contemporary Kitchen Design</h5>                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 -->
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="project-card shadow-sm">
+                            <img src="./images/office.jpg" class="img-fluid" alt="Office Interior">
+                            <div class="project-overlay">
+                                <h5 class="text-white">Corporate Office Interior</h5>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 4 -->
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="project-card shadow-sm">
+                            <img src="./images/work.jpg" class="img-fluid" alt="Work place">
+                            <div class="project-overlay">
+                                <h5 class="text-white">Work place</h5>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 5 -->
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="project-card shadow-sm">
+                            <img src="./images/rest.jpg" class="img-fluid" alt="Restaurant Interior">
+                            <div class="project-overlay">
+                                <h5 class="text-white">Restaurant Interior</h5>                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 6 -->
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="project-card shadow-sm">
+                            <img src="./images/outspace.jpg" class="img-fluid" alt="Outdoor Living">
+                            <div class="project-overlay">
+                                <h5 class="text-white">Outdoor Living Space</h5>                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-12 text-center">
+                        <a href="./projects" class="btn btn-success btn-lg">View All Projects</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Projects Section -->
+
+        <!-- Opening Hours Section -->
 
             <section class="featured-section section-padding">
                 <div class="container">
@@ -238,205 +474,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                     </div>
                 </div>
             </section>
-
-
-            <section class="shop-section section-padding" id="section_3">
-                <div class="container">
-                    <div class="row">
-
-                        <div class="col-lg-12 col-12">
-                            <small class="section-small-title">MK Interior Design Shop</small>
-
-                            <h2 class="mt-2 mb-4"><span class="tooplate-red">Interior</span> Products</h2>
-                        </div>
-
-                        <div class="col-lg-6 col-12">
-                            <div class="shop-thumb">
-                                <div class="shop-image-wrap">
-                                    <a href="shop-detail.html">
-                                        <img src="./images/shop/minimal-bathroom-interior-design-with-wooden-furniture.jpg" class="shop-image img-fluid" alt="">
-                                    </a>
-
-                                    <div class="shop-icons-wrap">
-                                        <div class="shop-icons d-flex flex-column align-items-center">
-                                            <a href="#" class="shop-icon bi-eye"></a>
-
-                                            
-                                        </div>
-
-                                        <p class="shop-pricing mb-0 mt-3">
-                                            <span class="badge custom-badge">View</span>
-                                        </p>
-                                    </div>
-
-                                    <div class="shop-btn-wrap">
-                                        <a href="./shop-detail" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Learn more</a>
-                                    </div>
-                                </div>
-
-                                <div class="shop-body">
-                                    <h4>Bathroom</h4>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-12">
-                            <div class="shop-thumb">
-                                <div class="shop-image-wrap">
-                                    <a href="shop-detail.html">
-                                        <img src="./images/shop/mock-up-poster-modern-dining-room-interior-design-with-white-empty-wall.jpg" class="shop-image img-fluid" alt="">
-                                    </a>
-
-                                    <div class="shop-icons-wrap">
-                                        <div class="shop-icons d-flex flex-column align-items-center">
-                                            <a href="#" class="shop-icon bi-eye"></a>                                            
-                                        </div>
-
-                                        <p class="shop-pricing mb-0 mt-3">
-                                            <span class="badge custom-badge">View</span>
-                                        </p>
-                                    </div>
-
-                                    <div class="shop-btn-wrap">
-                                        <a href="./shop-detail" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Learn more</a>
-                                    </div>
-                                </div>
-
-                                <div class="shop-body">
-                                    <h4>Dining</h4>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-12">
-                            <div class="shop-thumb">
-                                <div class="shop-image-wrap">
-                                    <a href="./shop-detail">
-                                        <img src="./images/shop/green-sofa-white-living-room-with-blank-table-mockup.jpg" class="shop-image img-fluid" alt="">
-                                    </a>
-
-                                    <div class="shop-icons-wrap">
-                                        <div class="shop-icons d-flex flex-column align-items-center">
-                                            <a href="#" class="shop-icon bi-eye"></a>                                            
-                                        </div>
-
-                                        <p class="shop-pricing mb-0 mt-3">
-                                            <span class="badge custom-badge">View</span>
-                                        </p>
-                                    </div>
-
-                                    <div class="shop-btn-wrap">
-                                        <a href="./shop-detail" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Learn more</a>
-                                    </div>
-                                </div>
-
-                                <div class="shop-body">
-                                    <h4>Living Room</h4>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-12">
-                            <div class="shop-thumb">
-                                <div class="shop-image-wrap">
-                                    <a href="./shop-detail">
-                                        <img src="./images/shop/concept-home-cooking-with-female-chef.jpg" class="shop-image img-fluid" alt="">
-                                    </a>
-
-                                    <div class="shop-icons-wrap">
-                                        <div class="shop-icons d-flex flex-column align-items-center">
-                                            <a href="#" class="shop-icon bi-eye"></a>                                            
-                                        </div>
-
-                                        <p class="shop-pricing mb-0 mt-3">
-                                            <span class="badge custom-badge">View</span>
-                                        </p>
-                                    </div>
-
-                                    <div class="shop-btn-wrap">
-                                        <a href="./shop-detail" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Learn more</a>
-                                    </div>
-                                </div>
-
-                                <div class="shop-body">
-                                    <h4>Chef Kitchen</h4>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-12">
-                            <div class="shop-thumb">
-                                <div class="shop-image-wrap">
-                                    <a href="./shop-detail">
-                                        <img src="./images/shop/childrens-bed-nursery-cot-velvet-childrens-room.jpg" class="shop-image img-fluid" alt="">
-                                    </a>
-
-                                    <div class="shop-icons-wrap">
-                                        <div class="shop-icons d-flex flex-column align-items-center">
-                                            <a href="#" class="shop-icon bi-eye"></a>                                            
-                                        </div>
-
-                                        <p class="shop-pricing mb-0 mt-3">
-                                            <span class="badge custom-badge">View</span>
-                                        </p>
-                                    </div>
-
-                                    <div class="shop-btn-wrap">
-                                        <a href="./shop-detail" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Learn more</a>
-                                    </div>
-                                </div>
-
-                                <div class="shop-body">
-                                    <h4>Childrens Bedroom</h4>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 col-12">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-
-                                    <li class="page-item active" aria-current="page">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2</a>
-                                    </li>
-                                    
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">3</a>
-                                    </li>
-
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">4</a>
-                                    </li>
-
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">5</a>
-                                    </li>
-                                    
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
+        
+            <!-- End Opening Hours Section -->
+            
 
         <!-- Reviews Section -->
 
-            <section class="reviews-section section-padding pb-0" id="section_4">
+            <section class="reviews-section section-padding pb-0" id="section_5">
                 <div class="container">
                     <div class="row">
 
@@ -449,7 +493,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
                                 <div class="reviews-thumb">
                                     <div class="reviews-body">
-                                        <p class="fw-bold">MK Interior is the most suitable website layout.</p>
+                                        <p class="fw-bold">MK Interior transformed our home into a masterpiece. Their attention to detail is unmatched!</p>
                                     </div>
 
                                     <div class="reviews-bottom reviews-bottom-up d-flex align-items-center">
@@ -457,7 +501,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
                                         <div class="d-flex align-items-center justify-content-between flex-wrap w-100 ms-3">
                                             <p class="text-white mb-0">
-                                                <strong>Sandy</strong>, <small>CEO</small>
+                                                <strong>Sandy</strong>, <small>Homeowner</small>
                                             </p>
 
                                             <div class="reviews-icons">
@@ -473,7 +517,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
                                 <div class="reviews-thumb">
                                     <div class="reviews-body">
-                                        <p class="fw-bold">Explore more HTML Templates to download for your website.</p>
+                                        <p class="fw-bold">Our restaurant's new interior design has doubled our customers. MK Interior understood our vision perfectly.</p>
                                     </div>
 
                                     <div class="reviews-bottom reviews-bottom-up d-flex align-items-center">
@@ -481,14 +525,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
                                         <div class="d-flex align-items-center justify-content-between flex-wrap w-100 ms-3">
                                             <p class="text-white mb-0">
-                                                <strong>Jack</strong>, <small>Partner</small>
+                                                <strong>Jack</strong>, <small>Restaurant Owner</small>
                                             </p>
 
                                             <div class="reviews-icons">
                                                 <i class="bi-star-fill"></i>
                                                 <i class="bi-star-fill"></i>
                                                 <i class="bi-star-fill"></i>
-                                                <i class="bi-star"></i>
+                                                <i class="bi-star-fill"></i>
                                                 <i class="bi-star"></i>
                                             </div>
                                         </div>
@@ -497,7 +541,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
                                 <div class="reviews-thumb">
                                     <div class="reviews-body">
-                                        <p class="fw-bold">Please recommend Tooplate website to your friends.</p>
+                                        <p class="fw-bold">The office redesign has completely changed our work environment. Our employees are more productive and happy.</p>
                                     </div>
 
                                     <div class="reviews-bottom reviews-bottom-up d-flex align-items-center">
@@ -505,7 +549,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
                                         <div class="d-flex align-items-center justify-content-between flex-wrap w-100 ms-3">
                                             <p class="text-white mb-0">
-                                                <strong>Helen</strong>, <small>Client</small>
+                                                <strong>Helen</strong>, <small>CEO, Tech Company</small>
                                             </p>
 
                                             <div class="reviews-icons">
@@ -521,31 +565,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
                                 <div class="reviews-thumb">
                                     <div class="reviews-body">
-                                        <p class="fw-bold">This Bootstrap 5 layout is free to use for your website.</p>
-                                    </div>
-
-                                    <div class="reviews-bottom reviews-bottom-up d-flex align-items-center">
-                                        <img src="./images/avatar/portrait-young-redhead-bearded-male-wears-white-t-shirt-keeps-his-eyes-closed-smiling-feels-happy-yellow.jpg" class="avatar-image img-fluid" alt="">
-
-                                        <div class="d-flex align-items-center justify-content-between flex-wrap w-100 ms-3">
-                                            <p class="text-white mb-0">
-                                                <strong>Bill</strong>, <small>Designer</small>
-                                            </p>
-
-                                            <div class="reviews-icons">
-                                                <i class="bi-star-fill"></i>
-                                                <i class="bi-star-fill"></i>
-                                                <i class="bi-star-fill"></i>
-                                                <i class="bi-star"></i>
-                                                <i class="bi-star"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="reviews-thumb">
-                                    <div class="reviews-body">
-                                        <p class="fw-bold">Thank you for visiting Tooplate to download free templates.</p>
+                                        <p class="fw-bold">MK Interior designed our dream bedroom. Every detail is perfect and exactly what we envisioned.</p>
                                     </div>
 
                                     <div class="reviews-bottom reviews-bottom-up d-flex align-items-center">
@@ -553,7 +573,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
                                         <div class="d-flex align-items-center justify-content-between flex-wrap w-100 ms-3">
                                             <p class="text-white mb-0">
-                                                <strong>Susan</strong>, <small>Boss</small>
+                                                <strong>Susan</strong>, <small>Client</small>
                                             </p>
 
                                             <div class="reviews-icons">
@@ -561,7 +581,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                                                 <i class="bi-star-fill"></i>
                                                 <i class="bi-star-fill"></i>
                                                 <i class="bi-star-fill"></i>
-                                                <i class="bi-star-fill"></i>
+                                                <i class="bi-star-half"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -569,7 +589,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                             </div>
 
                             <div class="col-lg-12 col-12">
-                                <p class="d-flex justify-content-center align-items-center mt-lg-5">Write some reviews on <a href="#" class="custom-btn btn ms-3"><i class="bi-facebook me-2"></i>facebook</a></p>
+                                <p class="d-flex justify-content-center align-items-center mt-lg-5">Write some reviews on <a href="https://www.facebook.com/profile.php?id=61556198125523" class="custom-btn btn ms-3"><i class="bi-facebook me-2"></i>facebook</a></p>
                             </div>
                         </div>
 
@@ -581,7 +601,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 
         <!-- Contact Section -->
-        <section class="contact-section" id="section_5">
+        <section class="contact-section" id="section_6">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#f9f9f9" fill-opacity="1" d="M0,96L40,117.3C80,139,160,181,240,186.7C320,192,400,160,480,149.3C560,139,640,149,720,176C800,203,880,245,960,250.7C1040,256,1120,224,1200,229.3C1280,235,1360,277,1400,298.7L1440,320L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path></svg>
             <div class="container">
                 <div class="row">

@@ -202,32 +202,19 @@ $services = $query->fetchAll(PDO::FETCH_ASSOC);
                     <div class="row">
 
                         <div class="col-lg-12 col-12">
-                            <small class="section-small-title">MK Interior Design Shop</small>
+                            <small class="section-small-title">View some of our works</small>
 
-                            <h2 class="mt-2 mb-4"><span class="tooplate-red">Interior</span> Products</h2>
+                            <h2 class="mt-2 mb-4"><span class="tooplate-red">Our</span> Gallery</h2>
                         </div>
 
-                        <div class="col-lg-6 col-12">
+                        <div class="col-lg-6 col-12" id="1">
                             <div class="shop-thumb">
                                 <div class="shop-image-wrap">
-                                    <a href="shop-detail.html">
+                                    <a href="#1">
                                         <img src="./images/shop/minimal-bathroom-interior-design-with-wooden-furniture.jpg" class="shop-image img-fluid" alt="">
-                                    </a>
-
-                                    <div class="shop-icons-wrap">
-                                        <div class="shop-icons d-flex flex-column align-items-center">
-                                            <a href="#" class="shop-icon bi-eye"></a>
-
-                                            
-                                        </div>
-
-                                        <p class="shop-pricing mb-0 mt-3">
-                                            <span class="badge custom-badge">View</span>
-                                        </p>
-                                    </div>
-
+                                    </a>                                   
                                     <div class="shop-btn-wrap">
-                                        <a href="./shop-detail" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Learn more</a>
+                                        <a href="#1" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Bathroom</a>
                                     </div>
                                 </div>
 
@@ -237,25 +224,15 @@ $services = $query->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
 
-                        <div class="col-lg-6 col-12">
+                        <div class="col-lg-6 col-12" id="2">
                             <div class="shop-thumb">
                                 <div class="shop-image-wrap">
-                                    <a href="shop-detail.html">
+                                    <a href="#2">
                                         <img src="./images/shop/mock-up-poster-modern-dining-room-interior-design-with-white-empty-wall.jpg" class="shop-image img-fluid" alt="">
                                     </a>
-
-                                    <div class="shop-icons-wrap">
-                                        <div class="shop-icons d-flex flex-column align-items-center">
-                                            <a href="#" class="shop-icon bi-eye"></a>                                            
-                                        </div>
-
-                                        <p class="shop-pricing mb-0 mt-3">
-                                            <span class="badge custom-badge">View</span>
-                                        </p>
-                                    </div>
-
+                                    
                                     <div class="shop-btn-wrap">
-                                        <a href="./shop-detail" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Learn more</a>
+                                        <a href="#2" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Dining</a>
                                     </div>
                                 </div>
 
@@ -265,25 +242,14 @@ $services = $query->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
 
-                        <div class="col-lg-4 col-12">
+                        <div class="col-lg-4 col-12" id="3">
                             <div class="shop-thumb">
                                 <div class="shop-image-wrap">
-                                    <a href="./shop-detail">
+                                    <a href="#3">
                                         <img src="./images/shop/green-sofa-white-living-room-with-blank-table-mockup.jpg" class="shop-image img-fluid" alt="">
-                                    </a>
-
-                                    <div class="shop-icons-wrap">
-                                        <div class="shop-icons d-flex flex-column align-items-center">
-                                            <a href="#" class="shop-icon bi-eye"></a>                                            
-                                        </div>
-
-                                        <p class="shop-pricing mb-0 mt-3">
-                                            <span class="badge custom-badge">View</span>
-                                        </p>
-                                    </div>
-
+                                    </a>                                    
                                     <div class="shop-btn-wrap">
-                                        <a href="./shop-detail" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Learn more</a>
+                                        <a href="#3" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Living Room</a>
                                     </div>
                                 </div>
 
@@ -293,25 +259,14 @@ $services = $query->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
 
-                        <div class="col-lg-4 col-12">
+                        <div class="col-lg-4 col-12" id="4">
                             <div class="shop-thumb">
                                 <div class="shop-image-wrap">
-                                    <a href="./shop-detail">
+                                    <a href="#4">
                                         <img src="./images/shop/concept-home-cooking-with-female-chef.jpg" class="shop-image img-fluid" alt="">
-                                    </a>
-
-                                    <div class="shop-icons-wrap">
-                                        <div class="shop-icons d-flex flex-column align-items-center">
-                                            <a href="#" class="shop-icon bi-eye"></a>                                            
-                                        </div>
-
-                                        <p class="shop-pricing mb-0 mt-3">
-                                            <span class="badge custom-badge">View</span>
-                                        </p>
-                                    </div>
-
+                                    </a>                                    
                                     <div class="shop-btn-wrap">
-                                        <a href="./shop-detail" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Learn more</a>
+                                        <a href="#4" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Chef Kitchen</a>
                                     </div>
                                 </div>
 
@@ -321,25 +276,14 @@ $services = $query->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
 
-                        <div class="col-lg-4 col-12">
+                        <div class="col-lg-4 col-12" id="5">
                             <div class="shop-thumb">
                                 <div class="shop-image-wrap">
-                                    <a href="./shop-detail">
+                                    <a href="#5">
                                         <img src="./images/shop/childrens-bed-nursery-cot-velvet-childrens-room.jpg" class="shop-image img-fluid" alt="">
-                                    </a>
-
-                                    <div class="shop-icons-wrap">
-                                        <div class="shop-icons d-flex flex-column align-items-center">
-                                            <a href="#" class="shop-icon bi-eye"></a>                                            
-                                        </div>
-
-                                        <p class="shop-pricing mb-0 mt-3">
-                                            <span class="badge custom-badge">View</span>
-                                        </p>
-                                    </div>
-
+                                    </a>                                    
                                     <div class="shop-btn-wrap">
-                                        <a href="./shop-detail" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Learn more</a>
+                                        <a href="#5" class="shop-btn custom-btn btn d-flex align-items-center align-items-center">Childrens Bedroom</a>
                                     </div>
                                 </div>
 
@@ -349,7 +293,7 @@ $services = $query->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
 
-                        <div class="col-lg-12 col-12">
+                        <!-- <div class="col-lg-12 col-12">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item">
@@ -385,7 +329,7 @@ $services = $query->fetchAll(PDO::FETCH_ASSOC);
                                     </li>
                                 </ul>
                             </nav>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>
