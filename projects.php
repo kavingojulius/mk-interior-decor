@@ -15,8 +15,24 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">        
+    <meta name="author" content="Mk Interior & Decor">
+    
     <title>Our Projects</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&family=Hepta+Slab:wght@1..900&display=swap" rel="stylesheet">                
+    
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="./css/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="./css/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="./css/styles.css" rel="stylesheet">
+
+
     <style>
         .project-card {
             transition: transform 0.3s;
@@ -31,8 +47,13 @@ try {
             object-fit: cover;
         }
     </style>
+
 </head>
 <body>
+
+    <?php include_once './includes/navbar.php'; ?>
+
+
     <div class="container py-5">
         <h1 class="text-center mb-5">Our Projects</h1>
         
@@ -79,5 +100,21 @@ try {
             <?php endforeach; ?>
         </div>
     </div>
+
+
+    <!-- Start Footer -->
+
+    <?php include_once './includes/footer.php'; ?>
+
+    <!-- End Footer -->
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/click-scroll.js"></script>
+    <script src="./js/jquery.backstretch.min.js"></script>
+    <script src="./js/owl.carousel.min.js"></script>
+    <script src="./js/custom.js"></script>        
+
 </body>
 </html>

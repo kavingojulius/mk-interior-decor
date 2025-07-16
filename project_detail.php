@@ -30,35 +30,105 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">        
+    <meta name="author" content="Mk Interior & Decor">
+
     <title><?= htmlspecialchars($project['title']) ?> - Project Details</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&family=Hepta+Slab:wght@1..900&display=swap" rel="stylesheet">                
+    
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/bootstrap-icons.css" rel="stylesheet">
+    <link href="./css/owl.carousel.min.css" rel="stylesheet">
+    <link href="./css/styles.css" rel="stylesheet">
+
     <style>
-        .media-container {
+        .project-header {
+            margin-bottom: 30px;
+        }
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
             margin-bottom: 30px;
         }
         .media-item {
-            margin-bottom: 20px;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
-        .media-item img, .media-item video {
-            max-width: 100%;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        .media-item:hover {
+            transform: translateY(-5px);
+        }
+        .media-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+        .media-item video {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+        .project-info {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+        .project-info h3 {
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .project-info p {
+            color: #555;
+            line-height: 1.6;
+        }
+        .back-btn {
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+        @media (max-width: 768px) {
+            .media-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- Start Nav bar -->
+    <?php include_once './includes/navbar.php'; ?>
+    <!-- End Nav bar -->
+
     <div class="container py-5">
-        <a href="projects.php" class="btn btn-outline-secondary mb-4">← Back to Projects</a>
+        <a href="projects.php" class="btn btn-outline-secondary back-btn">
+            <i class="bi bi-arrow-left"></i> Back to Projects
+        </a>
         
-        <h1 class="mb-4"><?= htmlspecialchars($project['title']) ?></h1>
+        <div class="project-header">
+            <h1 class="display-5"><?= htmlspecialchars($project['title']) ?></h1>
+        </div>
         
         <div class="row">
-            <div class="col-md-8">
-                <div class="media-container">
+            <div class="col-lg-8 order-lg-1 order-2">
+                <div class="media-grid">
                     <?php foreach ($media as $item): ?>
                         <div class="media-item">
                             <?php if ($item['media_type'] == 'image'): ?>
-                                <img src="admin/<?= htmlspecialchars($item['file_path']) ?>" class="img-fluid" alt="Project Image">
+                                <img src="admin/<?= htmlspecialchars($item['file_path']) ?>" alt="Project Image" class="img-fluid">
                             <?php else: ?>
                                 <video controls class="w-100">
                                     <source src="admin/<?= htmlspecialchars($item['file_path']) ?>" type="video/mp4">
@@ -70,15 +140,26 @@ try {
                 </div>
             </div>
             
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">Project Details</h3>
-                        <p class="card-text"><?= nl2br(htmlspecialchars($project['description'])) ?></p>
-                    </div>
+            <div class="col-lg-4 order-lg-2 order-1 mb-4 mb-lg-0">
+                <div class="project-info">
+                    <h3>Project Details</h3>
+                    <p><?= nl2br(htmlspecialchars($project['description'])) ?></p>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Start Footer -->
+    <?php include_once './includes/footer.php'; ?>
+    <!-- End Footer -->
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/click-scroll.js"></script>
+    <script src="./js/jquery.backstretch.min.js"></script>
+    <script src="./js/owl.carousel.min.js"></script>
+    <script src="./js/custom.js"></script>        
+
 </body>
 </html>
