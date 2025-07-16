@@ -153,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                                     <table class="account-table table">
                                         <thead>
                                             <tr>
-                                                <th scope="col">ID</th>
+                                                <th scope="col">#</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Phone</th>
                                                 <th scope="col">Email</th>
@@ -164,9 +164,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                                         </thead>
 
                                         <tbody>
-                                            <?php foreach ($messages as $message): ?>
+                                            <?php foreach ($messages as $index => $message): ?>
                                             <tr>
-                                                <td><?php echo htmlspecialchars($message['id']); ?></td>
+                                                <td><?php echo $index + 1; ?></td>
                                                 <td><?php echo htmlspecialchars($message['full_name']); ?></td>
                                                 <td><?php echo htmlspecialchars($message['phone'] ?? 'N/A'); ?></td>
                                                 <td><?php echo htmlspecialchars($message['email'] ?? 'N/A'); ?></td>
@@ -186,19 +186,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                                                         data-message="<?php echo htmlspecialchars($message['message']); ?>"
                                                         data-status="<?php echo $message['status']; ?>">
                                                         <i class="bi-eye"></i> 
-                                                        <!-- View -->
                                                     </button>
                                                     
                                                     <button class="btn btn-sm btn-warning action-btn update-btn" data-bs-toggle="modal" data-bs-target="#updateModal" 
                                                         data-id="<?php echo $message['id']; ?>"
                                                         data-status="<?php echo $message['status']; ?>">
                                                         <i class="bi-pencil"></i> 
-                                                        <!-- Update -->
                                                     </button>
                                                     
                                                     <a href="contacts.php?delete_id=<?php echo $message['id']; ?>" class="btn btn-sm btn-danger action-btn" onclick="return confirm('Are you sure you want to delete this message?');">
                                                         <i class="bi-trash"></i>
-                                                         <!-- Delete -->
                                                     </a>
                                                 </td>
                                             </tr>
@@ -253,7 +250,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                                 <div class="modal-body">
                                     <div class="row mb-3">
                                         <div class="col-md-6">
-                                            <p><strong>ID:</strong> <span id="view-id"></span></p>
                                             <p><strong>Name:</strong> <span id="view-name"></span></p>
                                             <p><strong>Phone:</strong> <span id="view-phone"></span></p>
                                         </div>
@@ -327,7 +323,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
             // View Modal Script
             document.querySelectorAll('.view-btn').forEach(button => {
                 button.addEventListener('click', function() {
-                    document.getElementById('view-id').textContent = this.getAttribute('data-id');
                     document.getElementById('view-name').textContent = this.getAttribute('data-name');
                     document.getElementById('view-phone').textContent = this.getAttribute('data-phone');
                     document.getElementById('view-email').textContent = this.getAttribute('data-email');

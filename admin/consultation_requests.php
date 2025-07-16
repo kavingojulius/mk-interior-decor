@@ -155,14 +155,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
 
                     <div class="row my-4">
                         <div class="col-lg-12 col-12">
-                            <div class="custom-block bg-white">
-                                <h5 class="mb-4">Consultation Requests</h5>
+                            <div class="custom-block bg-white">                                
 
                                 <div class="table-responsive">
                                     <table class="account-table table">
                                         <thead>
                                             <tr>
-                                                <th scope="col">ID</th>
+                                                <th scope="col">#</th>
                                                 <th scope="col">Email</th>
                                                 <th scope="col">Submission Date</th>
                                                 <!-- <th scope="col">Request</th> -->
@@ -172,9 +171,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                                         </thead>
 
                                         <tbody>
-                                            <?php foreach ($requests as $request): ?>
+                                            <?php foreach ($requests as $index => $request): ?>
                                             <tr>
-                                                <td><?php echo htmlspecialchars($request['id']); ?></td>
+                                                <td><?php echo $index + 1; ?></td>
                                                 <td><?php echo htmlspecialchars($request['email']); ?></td>
                                                 <td><?php echo date('M j, Y g:i A', strtotime($request['submission_date'])); ?></td>
                                                 
@@ -262,7 +261,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                                 <div class="modal-body">
                                     <div class="row mb-3">
                                         <div class="col-md-6">
-                                            <p><strong>ID:</strong> <span id="view-id"></span></p>
                                             <p><strong>Email:</strong> <span id="view-email"></span></p>
                                         </div>
                                         <div class="col-md-6">
@@ -334,7 +332,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
             // View Modal Script
             document.querySelectorAll('.view-btn').forEach(button => {
                 button.addEventListener('click', function() {
-                    document.getElementById('view-id').textContent = this.getAttribute('data-id');
                     document.getElementById('view-email').textContent = this.getAttribute('data-email');
                     document.getElementById('view-date').textContent = this.getAttribute('data-date');
                     document.getElementById('view-request').textContent = this.getAttribute('data-request');
