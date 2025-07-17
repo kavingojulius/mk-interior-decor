@@ -44,7 +44,7 @@
             </li> -->
 
             <li class="nav-item border-top mt-auto pt-2">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="../logout">
                     <i class="bi-box-arrow-left me-2"></i>
                     Logout
                 </a>

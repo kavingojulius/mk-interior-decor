@@ -1,12 +1,14 @@
 <?php
 session_start();
-// if (!isset($_SESSION['admin_logged_in'])) {
-//     header('Location: admin_login.php');
-//     exit;
-// }
+
+include '../config/config.php';
+if (!isset($_SESSION['admin_logged_in'])) {
+    header('Location: login.php');
+    exit();
+}
 
 $project_id = $_GET['project_id'] ?? 0;
-require_once '../config/config.php';
+// require_once '../config/config.php';
 
 // Handle file upload
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['media'])) {

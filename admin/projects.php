@@ -2,6 +2,12 @@
 session_start();
 require_once '../config/config.php';
 
+// Check if admin is logged in
+if (!isset($_SESSION['admin_logged_in'])) {
+    header('Location: login.php');
+    exit();
+}
+
 // Handle project deletion
 if (isset($_GET['delete_id'])) {
     try {

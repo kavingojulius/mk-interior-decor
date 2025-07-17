@@ -2,6 +2,13 @@
 CREATE DATABASE IF NOT EXISTS mkinterior_db;
 USE mkinterior_db;
 
+-- Admin login table
+CREATE TABLE admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS consultation_requests (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
